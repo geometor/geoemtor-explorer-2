@@ -1,0 +1,36 @@
+.point {
+  //
+  transform: translate(-5px,0);
+
+  circle {
+    stroke: $default-bg-color;
+    stroke-opacity: 1;
+    stroke-width: $point-top-stroke-width;
+
+    fill: $default-color;
+    fill-opacity: 1;
+    /* vector-effect: non-scaling-stroke; */
+    r: $point-radius;
+  }
+
+  &.highlight .bottom {
+    stroke: $default-color;
+    stroke-width: 20;
+    stroke-opacity: 0.2;
+    /* r: 20; */
+  }
+
+  &.golden .bottom {
+    stroke: $gold-color;
+    stroke-width: $point-bottom-stroke-width;
+    stroke-opacity: 1;
+    /* r: 20; */
+  }
+
+  &.select .bottom {
+    stroke: $default-color;
+    stroke-width: 10;
+    stroke-opacity: 0.8;
+    /* r: 20; */
+  }
+}

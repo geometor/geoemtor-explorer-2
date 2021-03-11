@@ -1,0 +1,205 @@
+body {
+  background: none;
+
+}
+
+* {
+  opacity: 1;
+  stroke: black;
+  stroke-opacity: .5;
+
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: butt;
+
+  fill: black;
+  fill-opacity: 0;
+
+  fill-rule: nonzero;
+
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+}
+
+
+.bg {
+  width: 100vw;
+  height: 100vh;
+
+  stroke: none;
+
+  fill: black;
+}
+
+text {
+  stroke: none;
+
+  fill: black;
+  fill-opacity: 1.0000;
+
+  font-size: 1em;
+
+  opacity: 0;
+
+  x: 0;
+  y: 0;
+}
+
+path {
+  // vector-effect: non-scaling-stroke;
+}
+
+.select {
+  stroke-opacity: 1;
+  fill-opacity: .7;
+  path {
+    fill-opacity: .2;
+  }
+}
+
+.fade {
+  path {
+    stroke-opacity: .2;
+  }
+}
+
+.point {
+
+  transform: translate(-5px,0);
+
+
+  circle {
+    stroke: white;
+    stroke-opacity: 1;
+    stroke-width: 3;
+    fill: black;
+    fill-opacity: 1;
+    /* vector-effect: non-scaling-stroke; */
+    r:3;
+  }
+
+  &.highlight .bottom {
+    stroke: black;
+    stroke-width: 11;
+    stroke-opacity: .5;
+    /* r: 20; */
+  }
+
+  &.golden .bottom {
+    stroke: black;
+    stroke-width: 14;
+    stroke-opacity: 1;
+    /* r: 20; */
+  }
+
+  &.select .bottom {
+    stroke: black;
+    stroke-width: 9;
+    stroke-opacity:.8;
+    /* r: 20; */
+  }
+
+}
+
+
+.line {
+
+  &.fade {
+    path {
+      stroke-opacity: .2;
+    }
+  }
+
+}
+
+.circle {
+  fill-opacity: 0;
+}
+
+.polygon {
+  path {
+    stroke-width: 0;
+    fill: black;
+    fill-opacity: 0.2;
+  }
+}
+
+.bisector {
+  stroke-dasharray: 13, 5, 3, 5;
+}
+
+.segment path {
+  stroke: black;
+  stroke-width: 5;
+  stroke-opacity: 1;
+}
+
+.a path {
+  stroke-width: 3;
+}
+
+.b path {
+  stroke-width: 5;
+}
+
+[class~="a+b"] path {
+  stroke-width: 8;
+}
+
+[class~="a+2b"] path {
+  stroke-width: 13;
+}
+
+.golden  {
+  stroke: black;
+  stroke-opacity: 1;
+}
+
+.golden path {
+  // stroke: #FC0;
+  // stroke-opacity: 0.8;
+}
+
+.golden text {
+  opacity: 0.8;
+  display: none;
+}
+
+.s-ff6699 path {
+  stroke: black;
+  fill: black;
+}
+
+.s-66ccff path {
+  stroke: black;
+  fill: black;
+}
+
+.s-cc66ff path {
+  stroke: black;
+  fill: black;
+}
+
+.s-99ff00 path {
+  stroke: black;
+  fill: black;
+}
+.s-33ffcc path {
+  stroke: black;
+  fill: black;
+}
+.s-ffff66 path {
+  stroke: black;
+  fill: black;
+}
+.s-66ff00 path {
+  stroke: black;
+  fill: black;
+}

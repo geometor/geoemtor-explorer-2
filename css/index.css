@@ -1,0 +1,166 @@
+svg * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  opacity: 1;
+  stroke: white;
+  stroke-opacity: 0.5;
+  stroke-width: 5;
+  stroke-linejoin: round;
+  stroke-linecap: butt;
+  fill: white;
+  fill-opacity: 0;
+  fill-rule: nonzero;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  stroke: none;
+  fill: black;
+  fill-opacity: 1;
+}
+
+text {
+  x: 0;
+  y: 0;
+  opacity: 0;
+  stroke: none;
+  fill: white;
+  fill-opacity: 1;
+  font-size: 1em;
+}
+
+.point {
+  transform: translate(-5px, 0);
+}
+.point circle {
+  stroke: black;
+  stroke-opacity: 1;
+  stroke-width: 5;
+  fill: white;
+  fill-opacity: 1;
+  /* vector-effect: non-scaling-stroke; */
+  r: 7;
+}
+.point.highlight .bottom {
+  stroke: white;
+  stroke-width: 20;
+  stroke-opacity: 0.2;
+  /* r: 20; */
+}
+.point.golden .bottom {
+  stroke: #C90;
+  stroke-width: 15;
+  stroke-opacity: 1;
+  /* r: 20; */
+}
+.point.select .bottom {
+  stroke: white;
+  stroke-width: 10;
+  stroke-opacity: 0.8;
+  /* r: 20; */
+}
+
+.circle {
+  fill-opacity: 0;
+}
+
+.polygon path {
+  stroke-width: 0;
+  fill-opacity: 0.2;
+}
+
+.segment path {
+  stroke: #C90;
+  stroke-width: 5;
+  stroke-opacity: 1;
+}
+
+.select path {
+  stroke-opacity: 1;
+  fill-opacity: 0.2;
+}
+
+.fade path {
+  stroke-opacity: 0.2;
+}
+
+.bisector {
+  stroke-dasharray: 13, 5, 3, 5;
+}
+
+.a path {
+  stroke-width: 7.5;
+}
+
+.b path {
+  stroke-width: 12.5;
+}
+
+[class~="a+b"] path {
+  stroke-width: 20;
+}
+
+[class~="a+2b"] path {
+  stroke-width: 32.5;
+}
+
+.golden {
+  stroke: #C90;
+  stroke-opacity: 1;
+}
+
+.golden text {
+  opacity: 0.8;
+  display: none;
+}
+
+.s-ff6699 path {
+  stroke: #ff6699;
+  fill: #ff6699;
+}
+
+.s-66ccff path {
+  stroke: #66ccff;
+  fill: #66ccff;
+}
+
+.s-cc66ff path {
+  stroke: #cc66ff;
+  fill: #cc66ff;
+}
+
+.s-99ff00 path {
+  stroke: #99ff00;
+  fill: #99ff00;
+}
+
+.s-33ffcc path {
+  stroke: #33ffcc;
+  fill: #33ffcc;
+}
+
+.s-ffff66 path {
+  stroke: #ffff66;
+  fill: #ffff66;
+}
+
+.s-66ff00 path {
+  stroke: #66ff00;
+  fill: #66ff00;
+}
+
+.s-ffffff path {
+  stroke: #ffffff;
+  fill: #ffffff;
+}
+
+.s-c0c0c0 path {
+  stroke: #c0c0c0;
+  fill: #c0c0c0;
+  /* stroke-dasharray: 5, 2, 3, 2; */
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,56 @@
+
+svg * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+
+  opacity: 1;
+
+  stroke: $default-color;
+  stroke-opacity: 0.5;
+  stroke-width: $default-stroke-width;
+  stroke-linejoin: round;
+  stroke-linecap: butt;
+
+  fill: $default-color;
+  fill-opacity: 0;
+  fill-rule: nonzero;
+}
+
+
+.bg {
+  width: 100%;
+  height: 100%;
+  stroke: none;
+  fill: $default-bg-color;
+  fill-opacity: 1;
+}
+
+
+text {
+  x: 0;
+  y: 0;
+
+  opacity: 0;
+
+  stroke: none;
+  fill: $default-text-color;
+  fill-opacity: 1.0000;
+
+  font-size: 1em;
+}
+
+path {
+  // vector-effect: non-scaling-stroke;
+}
+
+
+@import 'point';
+@import 'line';
+@import 'circle';
+@import 'polygon';
+@import 'segment';
+@import 'states';
+@import 'golden';
+@import 'color';
