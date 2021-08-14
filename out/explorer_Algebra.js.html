@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: explorer/Algebra.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: explorer/Algebra.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/** for the round function */
+const PRECISION = 8;
+
+/**
+ * shortcut for Algebrite.run see: {@link http://algebrite.org}
+
+ * checks for valid result
+ *
+ * @function
+ * @param {algCommand} cmd - Algebrite command string
+ * @returns {algExpression} algebraic expression - nothing on error
+ * @example
+ * cmd = `c = ((${pt1.x}) * (${pt2.y})) - ((${pt2.x}) * (${pt1.y}))`
+ * A.run(cmd)
+ * let c = A.run(`c`)
+
+*/
+export function run( cmd ) {
+  var result = Algebrite.run( cmd.toString() )
+  if ( checkValid(result) ) {
+    return result
+  } else {
+    console.error(`ALG: "${cmd}"
+        returns:
+        ${result}`)
+    //return nothing
+  }
+}
+
+/** run command with logging cmd string before */
+export function runLog( cmd ) {
+  console.log(cmd + "\n")
+  return run(cmd)
+}
+
+/** Algebrite may return a scalar (one result) or a tensor (a set of results) when solving.
+ * This function parses the result and always returns an array of one or more results
+ * @function
+ * @param {algValue} roots - Algebrite command string
+ * @returns {Array} of algValues
+ */
+export function parseRoots( roots ) {
+  if (roots) {
+    return roots.replace("[", "").replace("]", "").split(",")
+  }
+}
+
+/** check if algebraic value can be converted to a decimal float number
+ * returns false if not a number
+ *
+ * @function
+ * @param {algValue} val - Algebrite command string
+ * @returns {boolean}
+ */
+export function isNumber( val ) {
+  var num = run( `float(${val})` )
+  if ( isNaN( num ) ) {
+    log( `*** isNumber: "${val}" is not a Number.` )
+    return false;
+  }
+  return true;
+}
+
+/** convert the algebraic value to float and check if number&lt;br>
+ * returns false if not a number
+ *
+ * @function
+ * @param {algValue} val - Algebrite command string
+ * @returns {float | false}
+ */
+export function parseFloat( val ) {
+  let num = run( `float(${val})` )
+  let re = /(.*)\.\.\./
+  num = num.replace(re, '$1')
+  if ( isNaN( num ) ) {
+    console.log( `*** parseFloat: "${val}" is not a Number.` )
+    console.log( num )
+    return false
+  }
+  return num
+}
+
+/**
+ * check if algExpression string has `"Stop:"` or `"nil"`
+ *
+ * @function
+ * @param {algExpression} str - Algebrite command string
+ * @returns {boolean} true or false
+ */
+export function checkValid(str) {
+  let valid = true;
+
+  if ( str.indexOf("Stop:") !== -1 ) {
+    console.warn(`value: (${str}) contains 'Stop'`);
+    valid = false;
+  }
+
+  if ( str.indexOf("nil") !== -1 ) {
+    console.warn(`value: (${str}) contains 'nil'`);
+    valid = false;
+  }
+
+  return valid;
+}
+
+
+/** check if algebraic value has the value `i`
+ *
+ * @function
+ * @param {algExpression} str - Algebrite command string
+ * @returns {boolean} true or false
+ */
+export function isComplex(str) {
+  let complex = false
+
+  if ( str.indexOf("i") !== -1 ) {
+    complex = true
+  }
+
+  return complex
+}
+
+/** round for float comparison */
+export function round(number) {
+  let factor = Math.pow(10, PRECISION);
+  return Math.floor(number * factor) / factor;
+}
+
+export function kat(str) {
+  let latex = run(`printlatex(simplify(${str}))`);
+  let kStr = katex.renderToString(latex)
+
+  return kStr
+}
+
+/** @author 𝚽 &lt;phi@geometor.com>
+ * @license MIT
+ */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li><li><a href="Section.html">Section</a></li><li><a href="Segment.html">Segment</a></li><li><a href="Value.html">Value</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addCircle">addCircle</a></li><li><a href="global.html#addLine">addLine</a></li><li><a href="global.html#addPoint">addPoint</a></li><li><a href="global.html#addPointByValue">addPointByValue</a></li><li><a href="global.html#addSegment">addSegment</a></li><li><a href="global.html#addStruct">addStruct</a></li><li><a href="global.html#addStructs">addStructs</a></li><li><a href="global.html#checkSegments">checkSegments</a></li><li><a href="global.html#checkValid">checkValid</a></li><li><a href="global.html#compare">compare</a></li><li><a href="global.html#comparePoint">comparePoint</a></li><li><a href="global.html#configurePanels">configurePanels</a></li><li><a href="global.html#distanceTo">distanceTo</a></li><li><a href="global.html#divide">divide</a></li><li><a href="global.html#drawPoint">drawPoint</a></li><li><a href="global.html#drawStruct">drawStruct</a></li><li><a href="global.html#E">E</a></li><li><a href="global.html#equationRank">equationRank</a></li><li><a href="global.html#findPointbyTag">findPointbyTag</a></li><li><a href="global.html#findStruct">findStruct</a></li><li><a href="global.html#getIntersectionPoints">getIntersectionPoints</a></li><li><a href="global.html#getRow">getRow</a></li><li><a href="global.html#getXforY">getXforY</a></li><li><a href="global.html#getXRootsforY">getXRootsforY</a></li><li><a href="global.html#getYforX">getYforX</a></li><li><a href="global.html#getYRootsforX">getYRootsforX</a></li><li><a href="global.html#hlog">hlog</a></li><li><a href="global.html#isComplex">isComplex</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#listPoint">listPoint</a></li><li><a href="global.html#listStruct">listStruct</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#MUTEOPACITY">MUTEOPACITY</a></li><li><a href="global.html#parseFloat">parseFloat</a></li><li><a href="global.html#parseRoots">parseRoots</a></li><li><a href="global.html#PRECISION">PRECISION</a></li><li><a href="global.html#quadranceTo">quadranceTo</a></li><li><a href="global.html#round">round</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#runLog">runLog</a></li><li><a href="global.html#setBoundingBox">setBoundingBox</a></li><li><a href="global.html#setElementGroups">setElementGroups</a></li><li><a href="global.html#simpleKatex">simpleKatex</a></li><li><a href="global.html#TL_DRAW">TL_DRAW</a></li><li><a href="global.html#TL_GOLDEN">TL_GOLDEN</a></li><li><a href="global.html#toString">toString</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jun 20 2021 17:06:18 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

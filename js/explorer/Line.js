@@ -53,11 +53,11 @@ export default class Line extends Struct {
     this.hlog(`  = ${c}`)
 
     if(a == 0) {
-      b = 1;
+      // b = 1;
     }
 
     if(b == 0) {
-      a = 1;
+      // a = 1;
     }
 
 

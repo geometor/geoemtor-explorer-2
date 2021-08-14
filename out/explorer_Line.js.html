@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: explorer/Line.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: explorer/Line.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as A from './Algebra.js'
+import Struct from './Struct.js'
+import Equation from './Equation.js'
+
+/**
+ * represents a linear proportion established by two points
+ * - constructor calculates a generalized algebraic {@link Equation} to represent the linear proportions of the x, y values of the points recieved
+ *
+ * @class
+ * @param {Point} pt1 - initial point of the Line
+ * @param {Point} pt2 - initial point of the Line.
+ * @param {string} type - type of element - default: "Line"
+ * @param {string} id - optional: unique id for the Struct
+
+*/
+export default class Line extends Struct {
+  constructor(pt1, pt2, type, id) {
+
+    type = type || "Line"
+
+    super(pt1, pt2, type, id)
+
+    //***************************************
+
+    // calculate equation 1 coefficients
+    // ax + by + c form
+
+    var cmd
+    A.run(`clearall`)
+
+    // coefficent a
+    this.hlog(`a = (pt1.y) - (pt2.y)`)
+    cmd = `a = (${pt1.y}) - (${pt2.y})`
+    this.hlog(cmd)
+    A.run(cmd)
+    let a = A.run(`a`)
+    this.hlog(`  = ${a}`)
+
+    // coefficent b
+    this.hlog(`b = (pt2.x) - (pt1.x)`)
+    cmd = `b = (${pt2.x}) - (${pt1.x})`
+    this.hlog(cmd)
+    A.run(cmd)
+    let b = A.run(`b`)
+    this.hlog(`  = ${b}`)
+
+    // coefficent c
+    this.hlog(`c = ((pt1.x) * (pt2.y)) - ((pt2.x) * (pt1.y))`)
+    cmd = `c = ((${pt1.x}) * (${pt2.y})) - ((${pt2.x}) * (${pt1.y}))`
+    this.hlog(cmd)
+    A.run(cmd)
+    let c = A.run(`c`)
+    this.hlog(`  = ${c}`)
+
+    if(a == 0) {
+      // b = 1;
+    }
+
+    if(b == 0) {
+      // a = 1;
+    }
+
+
+    /**
+    * the equation associated with this element
+    * - set by constructor
+
+    * `d x^2 + e x y + f y^2 + a x + b y = c`
+
+    * `d = 0` // always for a line &lt;br>
+    * `e = 0` // always for a line &lt;br>
+    * `f = 0` // always for a line &lt;br>
+    * `a = (pt1.y) - (pt2.y)` &lt;br>
+    * `b = (pt2.x) - (pt1.x)` &lt;br>
+    * `c = ((pt1.x) * (pt2.y)) - ((pt2.x) * (pt1.y))`   // but sign is changed to put it on the other side of the equals &lt;br>
+
+    * @returns {Equation}
+    */
+    this.eq = new Equation("0", "0", "0", a, b, `-(${c})`)
+
+  } //constructor
+
+  /**
+   * check all pairs of contiguous segments on this line for golden ratio instances
+   * @function
+   * @returns {Array} collection of new {@link Section} objects where `.isGoldenRatio = true`
+   */
+  checkSegments() {
+
+    console.groupCollapsed("line: " + this.id + "");
+
+    // clone points before sorting
+    var points = this.points.slice(0);
+
+    // sort points on the line
+    points.sort(comparePoints);
+
+    //check for golden ratio
+    // const GR = "1/2 + 1/2 5^(1/2)"
+    // const GRval = A.run( `float(${GR})`)
+
+    for (var i = 0; i &lt; points.length - 2; i++) {
+      //get first segment point
+      var pt1 = points[i];
+
+      console.groupCollapsed("(" + pt1.id + ")");
+
+
+      var cmd = `clearall
+        PHI = 1/2 + 1/2 5^(1/2)
+        `;
+      A.run(cmd);
+
+      //loop the remaining points to set first segment
+      for (var j = i + 1; j &lt; points.length - 1; j++) {
+        var pt2 = points[j];
+
+        // get the length of the first segment
+        cmd = `A = ${pt1.distanceTo(pt2)}
+        A
+        `;
+        var A = A.run(cmd);
+
+        if (A.checkValid(A)) {
+
+          console.groupCollapsed(`> (${pt2.id}) : ${A} `);
+
+          // loop the remaining points to set second segment
+          for (var k = j + 1; k &lt; points.length; k++) {
+            var pt3 = points[k];
+
+            // get the length of the second segment
+            cmd = `B = ${pt2.distanceTo(pt3)}
+            B
+            `;
+            var B = A.run(cmd);
+
+            if (A.checkValid(B)) {
+
+              // console.groupCollapsed(`>> (${pt3.id}) : ${B} = ${Bval}` );
+              console.groupCollapsed(`>> (${pt3.id}) : ${B}`);
+
+              // get the ratio fo the segments
+              cmd = `R = simplify( A / B )
+              R
+              `;
+              var ratio = A.run(cmd);
+
+              log("        * ratio: " + ratio);
+
+              var check = A.run(` R - PHI `);
+              var checkVal = A.run(`float( R - PHI )`)
+
+              log("check: " + check);
+              log("  val: " + checkVal);
+
+              if (checkVal == 0 || checkVal == -1) {
+                //Success!
+                var str = `[${this.id}] : ${pt1.id}> ${A} &lt;${pt2.id}> ${B} &lt;${pt3.id}
+          : ${ratio}\n`;
+                console.warn("Golden! ", str);
+                logSegments(str);
+                var s1 = addSegment(pt1, pt2, this);
+
+                var s2 = addSegment(pt2, pt3, this);
+                golden.push([s1, s2]);
+
+              }
+              console.groupEnd();
+            } else {
+              // B not valid
+            }
+          } //for k
+          console.groupEnd();
+        } else {
+          // A not valid
+        }
+      } // for j
+      console.groupEnd();
+    } // for i
+    console.groupEnd();
+  }
+
+  /** @author 𝚽 &lt;phi@geometor.com>
+  * @license MIT
+  */
+} //class
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li><li><a href="Section.html">Section</a></li><li><a href="Segment.html">Segment</a></li><li><a href="Value.html">Value</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addCircle">addCircle</a></li><li><a href="global.html#addLine">addLine</a></li><li><a href="global.html#addPoint">addPoint</a></li><li><a href="global.html#addPointByValue">addPointByValue</a></li><li><a href="global.html#addSegment">addSegment</a></li><li><a href="global.html#addStruct">addStruct</a></li><li><a href="global.html#addStructs">addStructs</a></li><li><a href="global.html#checkSegments">checkSegments</a></li><li><a href="global.html#checkValid">checkValid</a></li><li><a href="global.html#compare">compare</a></li><li><a href="global.html#comparePoint">comparePoint</a></li><li><a href="global.html#configurePanels">configurePanels</a></li><li><a href="global.html#distanceTo">distanceTo</a></li><li><a href="global.html#divide">divide</a></li><li><a href="global.html#drawPoint">drawPoint</a></li><li><a href="global.html#drawStruct">drawStruct</a></li><li><a href="global.html#E">E</a></li><li><a href="global.html#equationRank">equationRank</a></li><li><a href="global.html#findPointbyTag">findPointbyTag</a></li><li><a href="global.html#findStruct">findStruct</a></li><li><a href="global.html#getIntersectionPoints">getIntersectionPoints</a></li><li><a href="global.html#getRow">getRow</a></li><li><a href="global.html#getXforY">getXforY</a></li><li><a href="global.html#getXRootsforY">getXRootsforY</a></li><li><a href="global.html#getYforX">getYforX</a></li><li><a href="global.html#getYRootsforX">getYRootsforX</a></li><li><a href="global.html#hlog">hlog</a></li><li><a href="global.html#isComplex">isComplex</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#listPoint">listPoint</a></li><li><a href="global.html#listStruct">listStruct</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#MUTEOPACITY">MUTEOPACITY</a></li><li><a href="global.html#parseFloat">parseFloat</a></li><li><a href="global.html#parseRoots">parseRoots</a></li><li><a href="global.html#PRECISION">PRECISION</a></li><li><a href="global.html#quadranceTo">quadranceTo</a></li><li><a href="global.html#round">round</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#runLog">runLog</a></li><li><a href="global.html#setBoundingBox">setBoundingBox</a></li><li><a href="global.html#setElementGroups">setElementGroups</a></li><li><a href="global.html#simpleKatex">simpleKatex</a></li><li><a href="global.html#TL_DRAW">TL_DRAW</a></li><li><a href="global.html#TL_GOLDEN">TL_GOLDEN</a></li><li><a href="global.html#toString">toString</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jun 20 2021 17:06:18 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

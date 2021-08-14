@@ -22,46 +22,56 @@ const E = new Explorer();
 function main() {
 
   console.time("* main *");
-
-  // let v = new Value("3^(1/2)")
-  // v.log()
-  // log(v.float)
-
-  // let v2 = new Value("1/2")
-  // let v3 = new Value("3^(1/2)")
-
-  let P0 =  E.addPointByValue( "-1/2", "0" )
-  // P0.log()
-
-  let P1 =  E.addPointByValue( "1/2", "0" )
-  // P1.log()
-
-  E.addLine(0, 1)
-  E.addCircle(0, 1)
-  E.addCircle(1, 0)
-  E.addLine(4, 5)
-  // E.addCircle(4, 0)
-  // E.addCircle(5, 0)
-  E.addLine(4, 0)
-  // E.addLine(4, 1)
-  // E.addLine(5, 0)
-  // E.addLine(5, 1)
-  // E.addCircle(2, 1)
-  // E.addCircle(1, 2)
-  // E.addCircle(3, 0)
-  // E.addCircle(0, 3)
-
+  test_lines();
+  // test_circles();
   console.timeEnd("* main *");
 
   // console.time("* play *");
-
   // TL_DRAW.play();
-
   // console.timeEnd("* play *");
-
   // checkAllSegments();
-
   //animateGoldenSegments();
+}
+
+function test_lines() {
+  E.addPointByValue( "0", "0" )
+  
+  E.addPointByValue( "-1", "1" )
+  E.addPointByValue( "1", "1" )
+
+  E.addPointByValue( "-2", "-2" )
+  E.addPointByValue( "1", "-2" )
+
+  let L1 = E.addLine(1, 2)
+  let L2 = E.addLine(3, 4)
+  E.addLine(1, 4)
+  E.addLine(2, 3)
+  E.addLine(2, 4)
+  E.addLine(0, 1)
+  console.log(L1);
+
+  // E.addLine(2, 3)
+}
+function test_circles() {
+  E.addPointByValue( "0", "0" )
+  
+  E.addPointByValue( "-1", "1" )
+  E.addPointByValue( "1", "1" )
+
+  // E.addPointByValue( "-2", "-2" )
+  // E.addPointByValue( "1", "-2" )
+
+  // E.addCircle(2, 1)
+  let C1 = E.addCircle(0, 1)
+  console.log(C1)
+  // let C2 = E.addCircle(1, 0)
+  // console.log(C2)
+  // E.addCircle(1, 2)
+  // E.addCircle(1, 4)
+  // E.addCircle(2, 3)
+  // console.log(L1);
+
+  // E.addLine(2, 3)
 }
 
 main();

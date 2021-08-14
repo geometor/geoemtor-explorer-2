@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: explorer/Element.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: explorer/Element.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * represents the common properties and methods of any entity of the {@link Model}&lt;br>
+ * in homage to Euclid
+ * - see subclass {@link Point}
+ * - see subclass {@link Struct}
+ *
+ * @class
+ * @param {string} type - optional: type of element - such as "Point" - like a class in CSS
+ * @param {string} id - optional: unique id for the element
+ */
+export default class Element {
+  constructor(type, id) {
+
+    /**
+     * type for the element
+     * - can be coordinated with css and for selecting groupings within the UI
+     * @returns {string} default: "Element"
+     */
+    this.type = type || "Element"
+
+    /**
+     * id of the element - set by the context of the {@link Model}&lt;br>
+     * - usually the index in the elements array
+     * - will be used to coordinate with UI elements in View
+     * @returns {string}
+     */
+    this.id = id || ""
+
+    /** will generally be set by extending class to create a unique identifier based on parameters */
+    this.tag = ""
+
+    /** a place to log the work
+    @type {Array}*/
+    this.history = []
+
+  } //constructor
+
+  /**
+   * grouped console output to represent the object&lt;br>
+   * @function
+   */
+  log() {
+    console.groupCollapsed(`${this.id} : ${this.type}`)
+    console.dir(this)
+    console.groupEnd()
+  }
+
+  /** log string to history */
+  hlog(str) {
+    this.history.push(str)
+  }
+
+  /**
+   * formatted string representing properties of the object&lt;br>
+   * will list the items in member arrays like points or parents
+   * TODO: resolve circular reference
+   * @function
+   * @returns {string}
+   */
+  toString() {
+    let str = `${this.id} : ${this.type}\n`
+
+    //iterate the properties of this object
+    for (let key in this) {
+
+      // pad the key as the label for right justify
+      let label = " ".repeat(10 - key.length) + key
+
+
+      // if (this[key] instanceof Array) {
+      //   // list array items
+      //   // label with count of items
+      //   str += label + ' : ' + this[key].length + '\n'
+      //
+      //   this[key].forEach( item => {
+      //     // label = " ".repeat(15 - item.id.toString().length) + item.id
+      //     // str += `${label} : ${item.type}\n`
+      //     str += `${item}\n`
+      //   })
+      // } else if (this[key] instanceof Equation) {
+      //   // TODO: does this need to be here
+      //   str += label + ' : ' + this[key].simple + '\n'
+      // } else {
+      //   //default output
+        str += label + ' : ' + this[key] + '\n'
+      // }
+
+    }
+
+    return str;
+  }
+
+  /** @author 𝚽 &lt;phi@geometor.com>
+  * @license MIT
+  */
+} //class
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li><li><a href="Section.html">Section</a></li><li><a href="Segment.html">Segment</a></li><li><a href="Value.html">Value</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addCircle">addCircle</a></li><li><a href="global.html#addLine">addLine</a></li><li><a href="global.html#addPoint">addPoint</a></li><li><a href="global.html#addPointByValue">addPointByValue</a></li><li><a href="global.html#addSegment">addSegment</a></li><li><a href="global.html#addStruct">addStruct</a></li><li><a href="global.html#addStructs">addStructs</a></li><li><a href="global.html#checkSegments">checkSegments</a></li><li><a href="global.html#checkValid">checkValid</a></li><li><a href="global.html#compare">compare</a></li><li><a href="global.html#comparePoint">comparePoint</a></li><li><a href="global.html#configurePanels">configurePanels</a></li><li><a href="global.html#distanceTo">distanceTo</a></li><li><a href="global.html#divide">divide</a></li><li><a href="global.html#drawPoint">drawPoint</a></li><li><a href="global.html#drawStruct">drawStruct</a></li><li><a href="global.html#E">E</a></li><li><a href="global.html#equationRank">equationRank</a></li><li><a href="global.html#findPointbyTag">findPointbyTag</a></li><li><a href="global.html#findStruct">findStruct</a></li><li><a href="global.html#getIntersectionPoints">getIntersectionPoints</a></li><li><a href="global.html#getRow">getRow</a></li><li><a href="global.html#getXforY">getXforY</a></li><li><a href="global.html#getXRootsforY">getXRootsforY</a></li><li><a href="global.html#getYforX">getYforX</a></li><li><a href="global.html#getYRootsforX">getYRootsforX</a></li><li><a href="global.html#hlog">hlog</a></li><li><a href="global.html#isComplex">isComplex</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#listPoint">listPoint</a></li><li><a href="global.html#listStruct">listStruct</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#MUTEOPACITY">MUTEOPACITY</a></li><li><a href="global.html#parseFloat">parseFloat</a></li><li><a href="global.html#parseRoots">parseRoots</a></li><li><a href="global.html#PRECISION">PRECISION</a></li><li><a href="global.html#quadranceTo">quadranceTo</a></li><li><a href="global.html#round">round</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#runLog">runLog</a></li><li><a href="global.html#setBoundingBox">setBoundingBox</a></li><li><a href="global.html#setElementGroups">setElementGroups</a></li><li><a href="global.html#simpleKatex">simpleKatex</a></li><li><a href="global.html#TL_DRAW">TL_DRAW</a></li><li><a href="global.html#TL_GOLDEN">TL_GOLDEN</a></li><li><a href="global.html#toString">toString</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jun 20 2021 17:06:18 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Explorer from './explorer/Explorer.js'
+
+// import * as Animate from './explorer/Animate.js'
+// import * as Diagnostics from './explorer/Diagnostics.js'
+// import * as Test from './explorer/Test.js'
+
+/**
+* Global instance of the {@link Explorer} object
+* @const
+*/
+const E = new Explorer();
+
+/**
+ * main.js - script to sequence the creating and display of the geometric model
+
+ * primary interface for {@link main}
+ * @author 𝚽 &lt;phi@geometor.com>
+ * @license MIT
+ *
+ * @function
+ */
+function main() {
+
+  console.time("* main *");
+  test_lines();
+  // test_circles();
+  console.timeEnd("* main *");
+
+  // console.time("* play *");
+  // TL_DRAW.play();
+  // console.timeEnd("* play *");
+  // checkAllSegments();
+  //animateGoldenSegments();
+}
+
+function test_lines() {
+  E.addPointByValue( "0", "0" )
+  
+  E.addPointByValue( "-1", "1" )
+  E.addPointByValue( "1", "1" )
+
+  E.addPointByValue( "-2", "-2" )
+  E.addPointByValue( "1", "-2" )
+
+  let L1 = E.addLine(1, 2)
+  let L2 = E.addLine(3, 4)
+  E.addLine(1, 4)
+  E.addLine(2, 3)
+  E.addLine(2, 4)
+  E.addLine(0, 1)
+  console.log(L1);
+
+  // E.addLine(2, 3)
+}
+function test_circles() {
+  E.addPointByValue( "0", "0" )
+  
+  E.addPointByValue( "-1", "1" )
+  E.addPointByValue( "1", "1" )
+
+  // E.addPointByValue( "-2", "-2" )
+  // E.addPointByValue( "1", "-2" )
+
+  // E.addCircle(2, 1)
+  let C1 = E.addCircle(0, 1)
+  console.log(C1)
+  // let C2 = E.addCircle(1, 0)
+  // console.log(C2)
+  // E.addCircle(1, 2)
+  // E.addCircle(1, 4)
+  // E.addCircle(2, 3)
+  // console.log(L1);
+
+  // E.addLine(2, 3)
+}
+
+main();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li><li><a href="Section.html">Section</a></li><li><a href="Segment.html">Segment</a></li><li><a href="Value.html">Value</a></li></ul><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addCircle">addCircle</a></li><li><a href="global.html#addLine">addLine</a></li><li><a href="global.html#addPoint">addPoint</a></li><li><a href="global.html#addPointByValue">addPointByValue</a></li><li><a href="global.html#addSegment">addSegment</a></li><li><a href="global.html#addStruct">addStruct</a></li><li><a href="global.html#addStructs">addStructs</a></li><li><a href="global.html#checkSegments">checkSegments</a></li><li><a href="global.html#checkValid">checkValid</a></li><li><a href="global.html#compare">compare</a></li><li><a href="global.html#comparePoint">comparePoint</a></li><li><a href="global.html#configurePanels">configurePanels</a></li><li><a href="global.html#distanceTo">distanceTo</a></li><li><a href="global.html#divide">divide</a></li><li><a href="global.html#drawPoint">drawPoint</a></li><li><a href="global.html#drawStruct">drawStruct</a></li><li><a href="global.html#E">E</a></li><li><a href="global.html#equationRank">equationRank</a></li><li><a href="global.html#findPointbyTag">findPointbyTag</a></li><li><a href="global.html#findStruct">findStruct</a></li><li><a href="global.html#getIntersectionPoints">getIntersectionPoints</a></li><li><a href="global.html#getRow">getRow</a></li><li><a href="global.html#getXforY">getXforY</a></li><li><a href="global.html#getXRootsforY">getXRootsforY</a></li><li><a href="global.html#getYforX">getYforX</a></li><li><a href="global.html#getYRootsforX">getYRootsforX</a></li><li><a href="global.html#hlog">hlog</a></li><li><a href="global.html#isComplex">isComplex</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#listPoint">listPoint</a></li><li><a href="global.html#listStruct">listStruct</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#multiply">multiply</a></li><li><a href="global.html#MUTEOPACITY">MUTEOPACITY</a></li><li><a href="global.html#parseFloat">parseFloat</a></li><li><a href="global.html#parseRoots">parseRoots</a></li><li><a href="global.html#PRECISION">PRECISION</a></li><li><a href="global.html#quadranceTo">quadranceTo</a></li><li><a href="global.html#round">round</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#runLog">runLog</a></li><li><a href="global.html#setBoundingBox">setBoundingBox</a></li><li><a href="global.html#setElementGroups">setElementGroups</a></li><li><a href="global.html#simpleKatex">simpleKatex</a></li><li><a href="global.html#TL_DRAW">TL_DRAW</a></li><li><a href="global.html#TL_GOLDEN">TL_GOLDEN</a></li><li><a href="global.html#toString">toString</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jun 20 2021 17:06:18 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

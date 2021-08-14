@@ -86,6 +86,7 @@ export default class Circle extends Struct {
     * @returns {string} algebraic value
     */
     this.r = A.run(`r`)
+    this.rVal = A.parseFloat(this.r)
     this.hlog(`  = ${this.r}`)
 
     // c coefficient
